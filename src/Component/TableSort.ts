@@ -122,7 +122,7 @@ class TableSort {
         };
 
         firstRow = getElem('.table-sort', 'all', firstRow) as NodeListOf<HTMLElement>;
-        if (firstRow) {
+        if (firstRow instanceof NodeList) {
             firstRow.forEach((value: HTMLElement) => {
                 value.setAttribute('role', 'columnheader');
                 if (value.getAttribute('data-sort-method') !== 'none') {
@@ -197,3 +197,5 @@ class TableSort {
         }
     }
 }
+
+export { TableSort };
