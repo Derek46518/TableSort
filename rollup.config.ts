@@ -19,13 +19,13 @@ const jsConfig: RollupOptions = {
         {
             file: pkg.exports['.']['umd'],
             format: 'umd',
-            name: 'checkBoxjs',
+            name: 'TableSort',
             plugins: isProduction ? [terser()] : []
         }
     ],
     plugins: [
         postcss({
-            extract: path.resolve(pkg.exports['./theme/checkBox.min.css']),
+            extract: path.resolve(pkg.exports['./theme/TableSort.min.css']),
             minimize: true,
             sourceMap: false
         }),

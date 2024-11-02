@@ -2,19 +2,19 @@
 	"name": "@derek46518/typescriptpractice",
 	"version":"1.0.0",
 	"type": "module",
-  	"main": "dist/checkBox.min.js",
-  	"module": "dist/checkBox.esm.js",
+  	"main": "dist/TableSort.min.js",
+  	"module": "dist/TableSort.esm.js",
   	"types": "dist/index.d.ts",
 	"scripts": {
 		"build": "rollup --config rollup.config.ts --configPlugin typescript --environment BUILD:production"
 	},
 	"exports": {
 		".": {
-		  "umd": "./dist/checkBox.min.js",
-		  "import": "./dist/checkBox.esm.js",
+		  "umd": "./dist/TableSort.min.js",
+		  "import": "./dist/TableSort.esm.js",
 		  "types": "./dist/index.d.ts"
 		},
-		"./theme/checkBox.min.css": "./dist/theme/checkBox.min.css"
+		"./theme/checkBox.min.css": "./dist/theme/TableSort.min.css"
 	},
 	"devDependencies": {
 		"@carry0987/utils": "^3.8.3",
