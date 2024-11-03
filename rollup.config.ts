@@ -5,9 +5,7 @@ import replace from '@rollup/plugin-replace';
 import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { dts } from 'rollup-plugin-dts';
-import postcss from 'rollup-plugin-postcss';
 import { createRequire } from 'module';
-import path from 'path';
 
 const pkg = createRequire(import.meta.url)('./package.json');
 const isProduction = process.env.BUILD === 'production';
@@ -19,16 +17,11 @@ const jsConfig: RollupOptions = {
         {
             file: pkg.exports['.']['umd'],
             format: 'umd',
-            name: 'TableSort',
+            name: 'tableSortjs',
             plugins: isProduction ? [terser()] : []
         }
     ],
     plugins: [
-        postcss({
-            extract: path.resolve(pkg.exports['./theme/TableSort.min.css']),
-            minimize: true,
-            sourceMap: false
-        }),
         typescript(),
         tsConfigPaths(),
         nodeResolve(),
@@ -48,11 +41,6 @@ const esConfig: RollupOptions = {
         }
     ],
     plugins: [
-        postcss({
-            inject: false,
-            extract: false,
-            sourceMap: false
-        }),
         typescript(),
         tsConfigPaths(),
         nodeResolve(),
@@ -69,7 +57,6 @@ const dtsConfig: RollupOptions = {
         file: pkg.exports['.']['types'],
         format: 'es'
     },
-    external: [/\.scss$/u],
     plugins: [
         tsConfigPaths(),
         dts()

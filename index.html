@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Sort Test with Minified Script</title>
+    <!-- 引入編譯過後的 tableSort.min.js 文件 -->
+    <script src="./dist/tableSort.min.js" defer></script>
+    <style>
+        /* 基本表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+        th[aria-sort="ascending"]::after {
+            content: " 🔼";
+        }
+        th[aria-sort="descending"]::after {
+            content: " 🔽";
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 排序按鈕 -->
+    <button id="sortButton">Sort by Age</button>
+
+    <!-- 可排序的表格 -->
+    <table class="table-sortable" id="testTable">
+        <thead>
+            <tr>
+                <th data-sort-method="string">Name</th>
+                <th data-sort-method="number">Age</th>
+                <th data-sort-method="date">Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <tr class="table-row">
+                <td>John Doe</td>
+                <td>25</td>
+                <td data-sort="2023-01-15">15 Jan 2023</td>
+            </tr>
+            <tr class="table-row">
+                <td>Jane Smith</td>
+                <td>30</td>
+                <td data-sort="2022-05-10">10 May 2022</td>
+            </tr>
+            <tr class="table-row">
+                <td>Alice Johnson</td>
+                <td>28</td>
+                <td data-sort="2021-08-22">22 Aug 2021</td>
+            </tr>
+            <tr class="table-row">
+                <td>Bob Brown</td>
+                <td>35</td>
+                <td data-sort="2020-03-17">17 Mar 2020</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 初始化 TableSort，並使用 tableSort.min.js 提供的 TableSort 類
+            const tableSortInstance = new tableSortjs.TableSort(document.getElementById("testTable"));
+
+            // 設置按鈕事件監聽器來觸發排序
+            document.getElementById("sortButton").addEventListener("click", function() {
+                const ageHeader = document.querySelector("#testTable th:nth-child(2)"); // 取得 "Age" 表頭
+                if (ageHeader) {
+                    tableSortInstance.sortTable(ageHeader); // 使用 sortTable 方法進行排序
+                }
+            });
+        });
+    </script>
+</body>
+</html>

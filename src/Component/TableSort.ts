@@ -86,7 +86,7 @@ class TableSort {
         let ele;
         if (typeof el === 'string') ele = getElem<HTMLElement>(el);
         if (!(el instanceof HTMLTableElement)) throw new Error('Element must be a table');
-        
+
         this.table = el;
         this.thead = false;
         this.options = options;
@@ -144,10 +144,11 @@ class TableSort {
             name: 'date',
             pattern: (item: string) => {
                 return (
-                    /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i.test(item) ||
-                    /\d{2,4}[\/\-]\d{1,2}[\/\-]\d{1,2}/.test(item) ||
-                    /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i.test(item)
-                ) && !isNaN(parseDate(item));
+                    (/(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i.test(item) ||
+                        /\d{2,4}[\/\-]\d{1,2}[\/\-]\d{1,2}/.test(item) ||
+                        /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i.test(item)) &&
+                    !isNaN(parseDate(item))
+                );
             },
             sort: (a: string, b: string): number => parseDate(b) - parseDate(a)
         });

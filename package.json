@@ -2,8 +2,8 @@
     "name": "@derek46518/typescriptpractice",
     "version": "1.0.0",
     "type": "module",
-    "main": "dist/TableSort.min.js",
-    "module": "dist/TableSort.esm.js",
+    "main": "dist/tableSort.min.js",
+    "module": "dist/tableSort.esm.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin typescript --environment BUILD:production",
@@ -11,11 +11,10 @@
     },
     "exports": {
         ".": {
-            "umd": "./dist/TableSort.min.js",
-            "import": "./dist/TableSort.esm.js",
+            "umd": "./dist/tableSort.min.js",
+            "import": "./dist/tableSort.esm.js",
             "types": "./dist/index.d.ts"
-        },
-        "./theme/checkBox.min.css": "./dist/theme/TableSort.min.css"
+        }
     },
     "devDependencies": {
         "@carry0987/utils": "^3.8.3",
@@ -24,6 +23,7 @@
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.1",
         "@testing-library/preact": "^3.2.4",
+        "@types/node": "^22.8.6",
         "happy-dom": "^15.8.0",
         "preact": "^10.24.3",
         "prettier": "^3.3.3",

@@ -1,2 +1,2 @@
-import { TableSort } from'@/Component/TableSort';
+import { TableSort } from '@/Component/tableSort';
 export { TableSort };
