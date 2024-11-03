@@ -33,6 +33,7 @@
 
     <!-- 排序按鈕 -->
     <button id="sortButton">Sort by Age</button>
+    <button id="sortDateButton">Sort by Date of Birth</button>
 
     <!-- 可排序的表格 -->
     <table class="table-sortable" id="testTable">
@@ -77,6 +78,13 @@
                 const ageHeader = document.querySelector("#testTable th:nth-child(2)"); // 取得 "Age" 表頭
                 if (ageHeader) {
                     tableSortInstance.sortTable(ageHeader); // 使用 sortTable 方法進行排序
+                }
+            });
+            // 設置按鈕事件監聽器來觸發日期排序
+            document.getElementById("sortDateButton").addEventListener("click", function() {
+                const dateHeader = document.querySelector("#testTable th:nth-child(3)"); // 取得 "Date of Birth" 表頭
+                if (dateHeader) {
+                    tableSortInstance.sortTable(dateHeader); // 使用 sortTable 方法進行排序
                 }
             });
         });
