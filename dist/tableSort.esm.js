@@ -32,12 +32,12 @@ let getInnerText = function (el) {
     return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
 };
 // caseInsensitiveSort 函數，默認的大小寫不敏感的排序方法
-let caseInsensitiveSort = function (a, b) {
+let caseInsensitiveSort = function (a, b, ascending = true) {
     a = a.trim().toLowerCase();
     b = b.trim().toLowerCase();
     if (a === b)
         return 0;
-    return a < b ? 1 : -1;
+    return ascending ? (a < b ? -1 : 1) : (a < b ? 1 : -1);
 };
 let stabilize = function (sort, antiStabilize) {
     return function (a, b) {
@@ -112,12 +112,14 @@ class TableSort {
     sortTable(header, update) {
         let that = this;
         let column = header.cellIndex;
-        let sortFunction = caseInsensitiveSort;
-        let sortOrder = header.getAttribute('aria-sort') || '';
+        let sortOrder = header.getAttribute('aria-sort');
+        // 判斷排序方向，並切換為相反的方向
         if (!update) {
             sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
             header.setAttribute('aria-sort', sortOrder);
         }
+        let ascending = sortOrder === 'ascending';
+        let sortFunction = (a, b) => caseInsensitiveSort(a, b, ascending);
         let getRow = getElem('.table-body .table-row:not(.no-sort)', 'all', that.table);
         if (getRow.length < 2)
             return;

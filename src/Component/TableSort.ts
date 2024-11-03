@@ -27,11 +27,11 @@ let getInnerText = function (el: HTMLElement): string {
 };
 
 // caseInsensitiveSort 函數，默認的大小寫不敏感的排序方法
-let caseInsensitiveSort = function (a: string, b: string): number {
+let caseInsensitiveSort = function (a: string, b: string, ascending: boolean = true): number {
     a = a.trim().toLowerCase();
     b = b.trim().toLowerCase();
     if (a === b) return 0;
-    return a < b ? 1 : -1;
+    return ascending ? (a < b ? -1 : 1) : (a < b ? 1 : -1);
 };
 
 // getCellByKey 函數，用於根據鍵值找到對應的表格單元格
@@ -158,13 +158,16 @@ class TableSort {
     sortTable(header: HTMLElement, update?: boolean): void {
         let that = this;
         let column = (header as HTMLTableCellElement).cellIndex;
-        let sortFunction = caseInsensitiveSort;
-        let sortOrder = header.getAttribute('aria-sort') || '';
+        let sortOrder = header.getAttribute('aria-sort');
 
+        // 判斷排序方向，並切換為相反的方向
         if (!update) {
             sortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
             header.setAttribute('aria-sort', sortOrder);
         }
+
+        let ascending = sortOrder === 'ascending';
+        let sortFunction = (a: string, b: string) => caseInsensitiveSort(a, b, ascending);
 
         let getRow = getElem('.table-body .table-row:not(.no-sort)', 'all', that.table);
         if (getRow.length < 2) return;
