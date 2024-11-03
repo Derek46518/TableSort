@@ -31,7 +31,7 @@ let caseInsensitiveSort = function (a: string, b: string, ascending: boolean = t
     a = a.trim().toLowerCase();
     b = b.trim().toLowerCase();
     if (a === b) return 0;
-    return ascending ? (a < b ? -1 : 1) : (a < b ? 1 : -1);
+    return ascending ? (a < b ? -1 : 1) : a < b ? 1 : -1;
 };
 
 // getCellByKey 函數，用於根據鍵值找到對應的表格單元格
