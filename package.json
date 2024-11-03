@@ -1,5 +1,5 @@
 {
-    "name": "@derek46518/typescriptpractice",
+    "name": "@derek46518/table-sort",
     "version": "1.0.0",
     "type": "module",
     "main": "dist/tableSort.min.js",
