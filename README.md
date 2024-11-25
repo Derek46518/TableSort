@@ -94,22 +94,7 @@ You can add buttons to trigger sorting programmatically using the `sortTable` me
   - `sortTable(headerElement)`: Sorts the table by the specified header element.
 
 ## Contribution
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch:
-```bash
-git checkout -b feature/your-feature-name
-```
-3. Commit your changes:
-```bash
-git commit -m "Add your feature"
-```
-4. Push the branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a Pull Request.
+Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
 ## License
-MIT
+This project is licensed under the MIT License.
