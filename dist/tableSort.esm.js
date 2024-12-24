@@ -37,7 +37,7 @@ let caseInsensitiveSort = function (a, b, ascending = true) {
     b = b.trim().toLowerCase();
     if (a === b)
         return 0;
-    return ascending ? (a < b ? -1 : 1) : (a < b ? 1 : -1);
+    return ascending ? (a < b ? -1 : 1) : a < b ? 1 : -1;
 };
 let stabilize = function (sort, antiStabilize) {
     return function (a, b) {
