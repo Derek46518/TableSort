@@ -83,8 +83,9 @@ class TableSort {
     col?: number;
 
     constructor(el: HTMLElement | string, options: any = {}) {
-        let ele;
-        if (typeof el === 'string') ele = getElem<HTMLElement>(el);
+        // Issue: ele is useless.
+        // let ele;
+        // if (typeof el === 'string') ele = getElem<HTMLElement>(el);
         if (!(el instanceof HTMLTableElement)) throw new Error('Element must be a table');
 
         this.table = el;
@@ -203,3 +204,4 @@ class TableSort {
 }
 
 export { TableSort };
+export {reportInfo, createEvent, getInnerText, caseInsensitiveSort, getCellByKey, stabilize, parseDate, sortOptions}
