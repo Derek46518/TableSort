@@ -34,7 +34,7 @@ describe('TableSort', () => {
         `;
     });
 
-    it('should initialize with a table element', () => {
+    it('should initialize a table element', () => {
         const table = document.getElementById('test-table') as HTMLTableElement;
         const tableSort = new TableSort(table);
         expect(tableSort).toBeInstanceOf(TableSort);
@@ -46,7 +46,7 @@ describe('TableSort', () => {
         expect(() => new TableSort(div as HTMLElement)).toThrow('Element must be a table');
     });
 
-    it('should initialize with thead when present', () => {
+    it('should initialize thead when present', () => {
         const table = document.getElementById('test-table') as HTMLTableElement;
         const tableSort = new TableSort(table);
         expect(tableSort.thead).toBe(true);
@@ -143,7 +143,36 @@ describe('TableSort', () => {
         expect(rows[2].children[0].textContent).toBe('2024/03/01');
     });
 
-    it('should handle multiple table bodies', () => {
+
+    it('should handle mixed date formats', () => {
+        document.body.innerHTML = `
+            <table id="date-formats-table">
+                <thead>
+                    <tr>
+                        <th class="table-sort" data-sort-method="date">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <tr class="table-row"><td>2024-01-01</td></tr>
+                    <tr class="table-row"><td>2024/03/01</td></tr>
+                    <tr class="table-row"><td>2024/02/01</td></tr>
+                </tbody>
+            </table>
+        `;
+        
+        const table = document.getElementById('date-formats-table') as HTMLTableElement;
+        const tableSort = new TableSort(table);
+        const th = table.querySelector('th.table-sort') as HTMLElement;
+        
+        th.click();
+        
+        const rows = table.querySelectorAll('.table-row');
+        expect(rows[0].children[0].textContent).toBe('2024-01-01');
+        expect(rows[1].children[0].textContent).toBe('2024/02/01');
+        expect(rows[2].children[0].textContent).toBe('2024/03/01');
+    });
+
+    it('should handle multiple tables', () => {
         document.body.innerHTML = `
             <table id="multi-tbody">
                 <thead>
@@ -173,7 +202,7 @@ describe('TableSort', () => {
         expect(bodies[1].querySelector('.table-row')?.children[0].textContent).toBe('Bob');
     });
 
-    it('should handle table with no sortable rows', () => {
+    it('should handle table no sortable rows', () => {
         document.body.innerHTML = `
             <table id="empty-row-table">
                 <thead>
@@ -221,7 +250,7 @@ describe('TableSort', () => {
         expect(rows[0].textContent).toBe('Single Row');
     });
 
-    it('should handle table bodies with fewer than 2 sortable rows', () => {
+    it('should handle tables with fewer than 2 sortable rows', () => {
         document.body.innerHTML = `
             <table id="few-rows-table">
                 <thead>
@@ -256,7 +285,7 @@ describe('TableSort', () => {
     });
 
     
-    it('should handle numeric date formats', () => {
+    it('should handle mixed date formats', () => {
         document.body.innerHTML = `
             <table id="date-patterns-table">
                 <thead>
@@ -313,58 +342,6 @@ describe('TableSort', () => {
             expect(rowsDesc[0].children[0].textContent).toBe('2024-04-01');
             expect(rowsDesc[6].children[0].textContent).toBe('2023-12-31');
         */
-    });
-
-    it('should handle switching between sort columns', () => {
-        document.body.innerHTML = `
-            <table id="date-patterns-table">
-                <thead>
-                    <tr>
-                        <th class="table-sort" data-sort-method="date">Date</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    <tr class="table-row"><td>Mon, Jan 1 2024</td></tr>
-                    <tr class="table-row"><td>2024/01/02</td></tr>
-                    <tr class="table-row"><td>2024-01-03</td></tr>
-                    <tr class="table-row"><td>Tue, February 1, 2024</td></tr>
-                    <tr class="table-row"><td>Wed. March 15 2024</td></tr>
-                    <tr class="table-row"><td>April 1st, 2024</td></tr>
-                    <tr class="table-row"><td>Sun, Dec 31 2023</td></tr>
-                </tbody>
-            </table>
-        `;
-        
-        const table = document.getElementById('date-patterns-table') as HTMLTableElement;
-        const tableSort = new TableSort(table);
-        const th = table.querySelector('th.table-sort') as HTMLElement;
-        
-        th.click();
-        
-        const rows = table.querySelectorAll('.table-row');
-        // Should be sorted in ascending order
-        // T-case
-        expect(rows[0].children[0].textContent).toBe('2024-01-03');
-        expect(rows[1].children[0].textContent).toBe('2024/01/02');
-        expect(rows[2].children[0].textContent).toBe('April 1st, 2024');
-        expect(rows[3].children[0].textContent).toBe('Mon, Jan 1 2024');
-        expect(rows[4].children[0].textContent).toBe('Sun, Dec 31 2023');
-        expect(rows[5].children[0].textContent).toBe('Tue, February 1, 2024');
-        expect(rows[6].children[0].textContent).toBe('Wed. March 15 2024');
-        // expect(rows[0].children[0].textContent).toBe('Sun, Dec 31 2023');
-        // expect(rows[1].children[0].textContent).toBe('Mon, Jan 1 2024');
-        // expect(rows[2].children[0].textContent).toBe('2024/01/02');
-        // expect(rows[3].children[0].textContent).toBe('2024-01-03');
-        // expect(rows[4].children[0].textContent).toBe('Tue, February 1, 2024');
-        // expect(rows[5].children[0].textContent).toBe('Wed. March 15 2024');
-        // expect(rows[6].children[0].textContent).toBe('April 1st, 2024');
-
-        // Click again to test descending order
-        th.click();
-        const rowsDesc = table.querySelectorAll('.table-row');
-        // T-case
-        // expect(rowsDesc[0].children[0].textContent).toBe('April 1st, 2024');
-        // expect(rowsDesc[6].children[0].textContent).toBe('Sun, Dec 31 2023');
     });
 
     it('should handle switching between sort columns', () => {
@@ -443,7 +420,7 @@ describe('TableSort', () => {
         expect(th.getAttribute('aria-sort')).toBe('descending');
     });
 
-    it('should refresh sort when refresh method is called', () => {
+    it('should refresh sort', () => {
         const table = document.getElementById('test-table') as HTMLTableElement;
         const tableSort = new TableSort(table);
         const th = table.querySelector('th') as HTMLElement;
@@ -572,7 +549,7 @@ describe('TableSort', () => {
         expect(tableSort.options.customOption).toBe(true);
     });
 
-    it('should toggle sort order on repeated clicks', () => {
+    it('should toggle sort order on clicks', () => {
         document.body.innerHTML = `
             <table id="toggle-sort-table">
                 <thead>

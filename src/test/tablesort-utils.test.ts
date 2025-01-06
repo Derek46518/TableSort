@@ -154,11 +154,6 @@ describe('parseDate', () => {
         expect(parseDate('2024/01/05')).toBe(new Date('2024-01-05').getTime());
     });
 
-    // it('should handle different date formats', () => {
-    //     expect(parseDate('Jan 1, 2024')).toBe(new Date('2024/01/01').getTime()); // die
-    //     expect(parseDate('2024-01-05')).toBe(new Date('2024/01/05').getTime());
-    //     expect(parseDate('2024/01/05')).toBe(new Date('2024/01/05').getTime());
-    // });
 
     it('should return -1 for invalid dates', () => {
         expect(parseDate('invalid-date')).toBe(-1);
