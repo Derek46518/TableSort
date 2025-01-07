@@ -7,7 +7,10 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin typescript --environment BUILD:production",
-        "lint": "prettier --write \"src/**/*.{ts,tsx,scss}\""
+        "lint": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
+        "test": "vitest",
+        "test:run": "vitest run",
+        "test:coverage": "vitest run --coverage"
     },
     "exports": {
         ".": {
@@ -25,6 +28,7 @@
         "@testing-library/preact": "^3.2.4",
         "@types/node": "^22.8.6",
         "happy-dom": "^15.8.0",
+        "jsdom": "^25.0.1",
         "preact": "^10.24.3",
         "prettier": "^3.3.3",
         "rollup": "^4.24.3",
@@ -34,5 +38,8 @@
         "sass": "^1.80.6",
         "tslib": "^2.8.1",
         "vitest": "^2.1.4"
+    },
+    "dependencies": {
+        "@vitest/coverage-v8": "^2.1.8"
     }
 }
