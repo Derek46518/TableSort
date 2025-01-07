@@ -204,4 +204,4 @@ class TableSort {
 }
 
 export { TableSort };
-export {reportInfo, createEvent, getInnerText, caseInsensitiveSort, getCellByKey, stabilize, parseDate, sortOptions}
+export { reportInfo, createEvent, getInnerText, caseInsensitiveSort, getCellByKey, stabilize, parseDate, sortOptions };

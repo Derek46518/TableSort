@@ -7,7 +7,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin typescript --environment BUILD:production",
-        "lint": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
+        "lint": "prettier --write \"src/**/*.{ts,tsx,scss}\" \"test/**/*.{ts,tsx,scss}\"",
         "test": "vitest",
         "test:run": "vitest run",
         "test:coverage": "vitest run --coverage"

@@ -1,6 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { reportInfo, createEvent, getInnerText, caseInsensitiveSort, getCellByKey, stabilize, parseDate} from '../Component/TableSort';
-
+import {
+    reportInfo,
+    createEvent,
+    getInnerText,
+    caseInsensitiveSort,
+    getCellByKey,
+    stabilize,
+    parseDate
+} from '../src/Component/TableSort';
 
 describe('reportInfo', () => {
     beforeEach(() => {
@@ -41,7 +48,6 @@ describe('reportInfo', () => {
     });
 });
 
-
 describe('createEvent', () => {
     it('should create a CustomEvent when supported', () => {
         const event = createEvent('test-event');
@@ -61,50 +67,48 @@ describe('createEvent', () => {
     });
 });
 
-
 describe('getInnerText', () => {
     it('should return data-sort attribute value if present', () => {
-      const el = document.createElement('div');
-      el.setAttribute('data-sort', 'sort-value');
-      el.textContent = 'text-content';
-      expect(getInnerText(el)).toBe('sort-value');
+        const el = document.createElement('div');
+        el.setAttribute('data-sort', 'sort-value');
+        el.textContent = 'text-content';
+        expect(getInnerText(el)).toBe('sort-value');
     });
-  
-    it('should return textContent if no data-sort attribute', () => {
-      const el = document.createElement('div');
-      el.textContent = 'text-content';
-      expect(getInnerText(el)).toBe('text-content');
-    });
-  
-    it('should return innerText if no data-sort or textContent', () => {
-      const el = document.createElement('div');
-      // Force textContent to be null/empty while having innerText
-      Object.defineProperty(el, 'textContent', {
-        value: null,
-        writable: true
-      });
-      Object.defineProperty(el, 'innerText', {
-        value: 'inner-text-content',
-        writable: true
-      });
-      expect(getInnerText(el)).toBe('inner-text-content');
-    });
-  
-    it('should return empty string if all properties are empty/null', () => {
-      const el = document.createElement('div');
-      // Force all properties to be null/empty
-      Object.defineProperty(el, 'textContent', {
-        value: null,
-        writable: true
-      });
-      Object.defineProperty(el, 'innerText', {
-        value: null,
-        writable: true
-      });
-      expect(getInnerText(el)).toBe('');
-    });
-  });
 
+    it('should return textContent if no data-sort attribute', () => {
+        const el = document.createElement('div');
+        el.textContent = 'text-content';
+        expect(getInnerText(el)).toBe('text-content');
+    });
+
+    it('should return innerText if no data-sort or textContent', () => {
+        const el = document.createElement('div');
+        // Force textContent to be null/empty while having innerText
+        Object.defineProperty(el, 'textContent', {
+            value: null,
+            writable: true
+        });
+        Object.defineProperty(el, 'innerText', {
+            value: 'inner-text-content',
+            writable: true
+        });
+        expect(getInnerText(el)).toBe('inner-text-content');
+    });
+
+    it('should return empty string if all properties are empty/null', () => {
+        const el = document.createElement('div');
+        // Force all properties to be null/empty
+        Object.defineProperty(el, 'textContent', {
+            value: null,
+            writable: true
+        });
+        Object.defineProperty(el, 'innerText', {
+            value: null,
+            writable: true
+        });
+        expect(getInnerText(el)).toBe('');
+    });
+});
 
 describe('caseInsensitiveSort', () => {
     it('should sort strings case-insensitively in ascending order', () => {
@@ -125,11 +129,11 @@ describe('getCellByKey', () => {
         const row = document.createElement('tr');
         const cell1 = document.createElement('td');
         const cell2 = document.createElement('td');
-        
+
         cell1.setAttribute('data-sort-column-key', 'test-key');
         row.appendChild(cell1);
         row.appendChild(cell2);
-        
+
         const result = getCellByKey(row.children, 'test-key');
         expect(result).toBe(cell1);
     });
@@ -138,7 +142,7 @@ describe('getCellByKey', () => {
         const row = document.createElement('tr');
         const cell = document.createElement('td');
         row.appendChild(cell);
-        
+
         const result = getCellByKey(row.children, 'non-existent-key');
         expect(result).toBeUndefined();
     });
@@ -154,7 +158,6 @@ describe('parseDate', () => {
         expect(parseDate('2024/01/05')).toBe(new Date('2024-01-05').getTime());
     });
 
-
     it('should return -1 for invalid dates', () => {
         expect(parseDate('invalid-date')).toBe(-1);
     });
@@ -164,10 +167,10 @@ describe('stabilize', () => {
     it('should maintain order when values are equal in ascending order', () => {
         const mockSort = (a: string, b: string) => 0;
         const stabilizedSort = stabilize(mockSort, false);
-        
+
         const item1 = { td: 'same', index: 0 };
         const item2 = { td: 'same', index: 1 };
-        
+
         expect(stabilizedSort(item1, item2)).toBe(-1);
         expect(stabilizedSort(item2, item1)).toBe(1);
     });
@@ -175,12 +178,11 @@ describe('stabilize', () => {
     it('should maintain reverse order when values are equal in descending order', () => {
         const mockSort = (a: string, b: string) => 0;
         const stabilizedSort = stabilize(mockSort, true);
-        
+
         const item1 = { td: 'same', index: 0 };
         const item2 = { td: 'same', index: 1 };
-        
+
         expect(stabilizedSort(item1, item2)).toBe(1);
         expect(stabilizedSort(item2, item1)).toBe(-1);
     });
 });
-
