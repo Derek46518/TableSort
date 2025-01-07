@@ -1,6 +1,6 @@
 {
     "name": "@derek46518/table-sort",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "type": "module",
     "main": "dist/tableSort.min.js",
     "module": "dist/tableSort.esm.js",
